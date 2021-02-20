@@ -9,6 +9,7 @@ add_executable(
     main.cpp
     src/install/shmake.cpp
     src/error/error.cpp
+    src/network/downloader.cpp
 )
 
 add_compile_options(-Wall -Wextra -Werror)
