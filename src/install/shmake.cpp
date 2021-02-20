@@ -1,12 +1,12 @@
 #include "shmake.h"
 
-Shmake::Shmake(string fileName) {
+Shmake::Shmake(std::string fileName) {
     srand(time(NULL));
-    outputFileName = "/tmp/.shmake-" + to_string(rand()) + ".sh";
-    inputFileStream = ifstream(fileName);
-    outputFileStream = ofstream(outputFileName);
+    outputFileName = "/tmp/.shmake-" + std::to_string(rand()) + ".sh";
+    inputFileStream = std::ifstream(fileName);
+    outputFileStream = std::ofstream(outputFileName);
     if (!inputFileStream.good()) {
-        throw runtime_error("Error: no such file");
+        throw std::runtime_error("Error: no such file");
     }
     chmod(outputFileName.c_str(), S_IRWXU);
 }
@@ -22,7 +22,7 @@ Shmake::~Shmake() {
 void Shmake::readFile() {
     while (getline(inputFileStream, buffer)) {
         int index = buffer.find_first_not_of(' ');
-        if (index != string::npos) {
+        if (index != std::string::npos) {
             buffer = buffer.substr(index);
         }
         contents.push_back(buffer);
@@ -30,20 +30,20 @@ void Shmake::readFile() {
     outputFileStream.close();
 }
 
-int Shmake::findTarget(string target) {
+int Shmake::findTarget(std::string target) {
     for (int line = 0; line < contents.size(); line++) {
-        string currentLine = contents[line];
+        std::string currentLine = contents[line];
         if (currentLine == ":" + target) {
             return line;
         }
     }
-    throw runtime_error("Error: no such target");
+    throw std::runtime_error("Error: no such target");
 }
 
-void Shmake::execute(string target) {
+void Shmake::execute(std::string target) {
     int targetLine = findTarget(target);
     for (int i = targetLine + 1; i < contents.size(); i++) {
-        string currentLine = contents[i];
+        std::string currentLine = contents[i];
         switch (currentLine[0]) {
             case ';':
                 outputFileStream << "echo \"--" << currentLine.substr(1)
@@ -55,7 +55,7 @@ void Shmake::execute(string target) {
                 break;
 
             default:
-                outputFileStream << currentLine.c_str() + string("\n");
+                outputFileStream << currentLine.c_str() + std::string("\n");
                 break;
         }
     }
