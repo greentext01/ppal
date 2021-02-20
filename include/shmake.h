@@ -1,5 +1,5 @@
 #ifndef FILEREADER_H
-#define FILEREADERH
+#define FILEREADER_H
 
 #include <stdio.h>
 #include <sys/stat.h>
@@ -7,22 +7,21 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-using namespace std;
 
 class Shmake {
    private:
-    string buffer;
-    string outputFileName;
-    vector<string> contents;
-    ifstream inputFileStream;
-    ofstream outputFileStream;
-    int findTarget(string target);
+    std::string buffer;
+    std::string outputFileName;
+    std::vector<std::string> contents;
+    std::ifstream inputFileStream;
+    std::ofstream outputFileStream;
+    int findTarget(std::string target);
 
    public:
-    Shmake(string fileName);
+    Shmake(std::string fileName);
     ~Shmake();
     void readFile();
-    void execute(string target);
+    void execute(std::string target);
 };
 
 #endif

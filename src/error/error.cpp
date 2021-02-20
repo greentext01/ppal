@@ -5,7 +5,7 @@ void error(std::string message, int exitStatus = 0) {
     exit(exitStatus);
 }
 
-void throwErrorIf(std::string errorMessage, bool condition) {
+void throwErrorIf(bool condition, std::string errorMessage) {
     if (condition) {
         error(errorMessage);
     }
