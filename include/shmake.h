@@ -1,5 +1,5 @@
-#ifndef FILEREADER_H
-#define FILEREADER_H
+#ifndef SHMAKE_H
+#define SHMAKE_H
 
 #include <stdio.h>
 #include <sys/stat.h>
